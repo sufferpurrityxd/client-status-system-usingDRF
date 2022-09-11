@@ -8,14 +8,16 @@ services:
 
   # Database Postgres
   db:
-    image: postgres
+    restart: always
+    image: postgres:14.5
+    ports:
+      - "5435:5432"
     volumes:
-      - ./data/db:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data/
     environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-    container_name: postgres_db
+        POSTGRES_DB: "db"
+        POSTGRES_HOST_AUTH_METHOD: "trust"
+
 
   # Django Application
   app:
