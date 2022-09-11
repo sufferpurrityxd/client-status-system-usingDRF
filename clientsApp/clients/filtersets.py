@@ -29,4 +29,5 @@ class ClientFilterSet(filters.FilterSet):
 
     class Meta:
         model = Client
-        fields = ("date_visit", "date_joining", "status")
+        fields = ("date_visit", "date_joining", "status", "active")
+        
