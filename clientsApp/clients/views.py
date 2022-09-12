@@ -48,7 +48,7 @@ class ClientViewSet(CreateModelMixin,
     filter_backends = (OrderingFilter, filters.DjangoFilterBackend)
     filterset_class = ClientFilterSet
     ordering_fields = ('visits', 'date_joining', 'date_visit')
-    # permission_classes = (IsAdminUser,) # Needs JWT tokens 
+    permission_classes = (IsAdminUser,)  # Needs JWT tokens
 
     def perform_create(self, serializer):
         """

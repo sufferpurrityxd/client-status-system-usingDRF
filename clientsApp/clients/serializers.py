@@ -28,7 +28,7 @@ class ClientVisitsSerializer(serializers.ModelSerializer):
             with transaction.atomic():
                 client = Client.objects.filter(pk=self.instance.pk)
                 client.update(visits=F('visits') + 1)
-                # update_client_status.delay(self.instance.pk)
+                update_client_status.delay(self.instance.pk)
                 return client
 
     def to_representation(self, instance):
