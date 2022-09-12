@@ -15,7 +15,9 @@ from django.db.models import (
 from .service import (
     send_status_upgrade_email_message
 )
-
+from datetime import (
+    date, timedelta
+)
 logger = get_task_logger(__name__)
 
 
@@ -53,4 +55,11 @@ def update_client_visit():
     """
     The client becomes inactive if he has not visited our establishment for more than 30 days
     """
-    pass
+    try:
+        Client.objects.filter(
+            activte=True, date_visit=(date.today() - timedelta(days=30))
+        ).update(activte=False)
+        return True
+    except Exception as ex:
+        logging.info("Error!!! {0}".format(ex))
+    
