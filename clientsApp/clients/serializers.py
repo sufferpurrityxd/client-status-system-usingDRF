@@ -1,5 +1,6 @@
 from .models import (
-    Client
+    Client,
+    ClientPromocode
 )
 from django.db import (
     transaction
@@ -55,3 +56,10 @@ class ClientSerailizer(serializers.ModelSerializer):
             visits=self.validated_data['visits'],
             status=self.validated_data['status'],
         ).save()
+
+
+class ClientPromocodeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ClientPromocode
+        fields = ("active",)
+

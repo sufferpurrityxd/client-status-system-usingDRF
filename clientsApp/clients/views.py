@@ -10,7 +10,8 @@ from rest_framework.mixins import (
 )
 from .serializers import (
     ClientVisitsSerializer,
-    ClientSerailizer
+    ClientSerailizer,
+    ClientPromocodeSerializer
 )
 from .models import (
     Client,
@@ -56,3 +57,9 @@ class ClientViewSet(CreateModelMixin,
         """
         serializer.validated_data['status'] = ClientStatus.objects.get(visits_before_receiving__lte=serializer.validated_data['visits'])
         serializer.save()
+
+
+class ClientPromocodeUpdateViewSet(UpdateModelMixin,
+                                   GenericViewSet):
+    queryset = Client.objects.all()
+    serializer_class = ClientPromocodeSerializer
