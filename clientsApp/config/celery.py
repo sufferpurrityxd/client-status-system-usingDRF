@@ -15,3 +15,9 @@ app.conf.beat_schedule = {
         "schedule": crontab(minute=0, hour=0)
     }
 }
+app.conf.beat_schedule = {
+    "every-30-mins-check-give-promocode": {
+        "task": "clients.tasks.promocode_to_client",
+        "scehdule": crontab("*/30")
+    }
+}

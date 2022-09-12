@@ -6,7 +6,7 @@ from django.core.mail import (
 )
 
 
-def send_status_upgrade_email_message(title, msg, client_email):
+def send_email_to_client(title, msg, client_email):
     send_mail(
         "{0}".format(title),
         "{0}".format(msg),

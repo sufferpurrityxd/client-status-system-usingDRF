@@ -1,8 +1,19 @@
-from django.db import models
+from datetime import (
+    date, timedelta
+)
+from django.db import (
+    models
+)
+from string import (
+    digits, ascii_lowercase
+)
+from random import (
+    choice
+)
 
 
 class Client(models.Model):
-    """Simple Client Model"""    
+    """Simple Client Model"""
     name = models.CharField(
         max_length=150, verbose_name="Client name", blank=False, null=False
     )
@@ -55,3 +66,32 @@ class ClientStatus(models.Model):
 
     def __str__(self) -> str:
         return self.status
+
+
+class ClientPromocode(models.Model):
+    @staticmethod
+    def get_promocode():
+        return "".join([choice(ascii_lowercase.upper() + ascii_lowercase + digits) for _ in range(0, 6)])
+
+    @staticmethod
+    def get_date():
+        return date.today() + timedelta(days=7)
+
+    secret_number = models.CharField(
+        max_length=6, default=get_promocode(), blank=False, null=False, verbose_name="Client promocode"
+    )
+    expiration_date = models.DateField(
+        default=get_date(), verbose_name="Expiration Date", blank=False, null=False
+    )
+    active = models.BooleanField(
+        default=True, verbose_name=""
+    )
+    discount = models.IntegerField(
+        verbose_name="Discount"
+    )
+    client = models.ForeignKey(
+        "Client",
+        on_delete=models.CASCADE,
+        blank=False,
+        null=False
+    )

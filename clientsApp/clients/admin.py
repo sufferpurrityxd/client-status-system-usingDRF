@@ -1,6 +1,7 @@
 from .models import (
     Client,
-    ClientStatus
+    ClientStatus,
+    ClientPromocode
 )
 from django.contrib import (
     admin
@@ -14,4 +15,9 @@ class ClientAdmin(admin.ModelAdmin):
 
 @admin.register(ClientStatus)
 class ClientStatusAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(ClientPromocode)
+class ClientPromocodeAdmin(admin.ModelAdmin):
     pass
