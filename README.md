@@ -16,6 +16,4 @@ This application automates the control of visits and the issuance of discounts t
   - Docker
   - docker-compose
   
- ## Application is under development
- 
- 
+# Run django-compose up --build to run server
