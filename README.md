@@ -9,12 +9,12 @@ This application automates the control of visits and the issuance of discounts t
 
 - Technology stack
   - Django
-  - Drf
-  - SQLite (will switch to PostgreSQL)
+  - Django Restframework
   - Celery
+  - Redis
+  - PostgreSQL
   - Docker
   - docker-compose
-  - Redis
   
  ## Application is under development
  
