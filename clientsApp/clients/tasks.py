@@ -52,7 +52,7 @@ def update_client_status(client_id):
 
 
 @app.task()
-def promocode_to_client(client_id):
+def promocode_to_client():
     """
     This task automatically issues promo codes to the client.
     - Imagine a system that every 30 visits the client receives a promocode for a discount(If he subscribed to the email newsletter)
