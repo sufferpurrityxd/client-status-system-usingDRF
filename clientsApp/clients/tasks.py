@@ -93,7 +93,6 @@ def promocode_to_client():
         logging.info("Error!!! {0}".format(ex))
 
 
-# TODO:
 @app.task()
 def update_client_visit():
     """

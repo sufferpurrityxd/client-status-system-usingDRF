@@ -11,11 +11,15 @@ from rest_framework.mixins import (
 from .serializers import (
     ClientVisitsSerializer,
     ClientSerailizer,
-    ClientPromocodeSerializer
+    ClientPromocodeActiveSerializer,
+    ClientReviewSerailizer
 )
 from .models import (
     Client,
-    ClientStatus
+    ClientStatus,
+    ClientPromocode,
+    ClientReview,
+    
 )
 from rest_framework.filters import (
     OrderingFilter
@@ -35,7 +39,7 @@ class ClientVisitsUpdateViewSet(UpdateModelMixin,
                                 GenericViewSet):
     queryset = Client.objects.all()
     serializer_class = ClientVisitsSerializer
-
+    # permission_classes = (IsAdminUser,)  # Needs JWT tokens
 
 class ClientViewSet(CreateModelMixin,
                     RetrieveModelMixin,
@@ -49,7 +53,7 @@ class ClientViewSet(CreateModelMixin,
     filter_backends = (OrderingFilter, filters.DjangoFilterBackend)
     filterset_class = ClientFilterSet
     ordering_fields = ('visits', 'date_joining', 'date_visit')
-    permission_classes = (IsAdminUser,)  # Needs JWT tokens
+    # permission_classes = (IsAdminUser,)  # Needs JWT tokens
 
     def perform_create(self, serializer):
         """
@@ -59,7 +63,23 @@ class ClientViewSet(CreateModelMixin,
         serializer.save()
 
 
-class ClientPromocodeUpdateViewSet(UpdateModelMixin,
-                                   GenericViewSet):
-    queryset = Client.objects.all()
-    serializer_class = ClientPromocodeSerializer
+class ClientPromocodeActiveUpdateViewSet(UpdateModelMixin,
+                                         GenericViewSet):
+    queryset = ClientPromocode.objects.all()
+    serializer_class = ClientPromocodeActiveSerializer
+    # permission_classes = (IsAdminUser,)  # Needs JWT tokens
+
+
+class ClientReviewViewSet(CreateModelMixin,
+                          RetrieveModelMixin,
+                          UpdateModelMixin,
+                          DestroyModelMixin,
+                          ListModelMixin,
+                          GenericViewSet
+                        ):
+    queryset = ClientReview.objects.all()
+    serializer_class = ClientReviewSerailizer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_fields = ("rating",)
+    
+

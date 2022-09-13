@@ -10,7 +10,9 @@ from string import (
 from random import (
     choice
 )
-
+from django.core.validators import (
+    MinValueValidator, MaxValueValidator
+)
 
 class Client(models.Model):
     """Simple Client Model"""
@@ -52,7 +54,6 @@ class ClientStatus(models.Model):
     - Status directly depends on visits
     - discount depends on the status of the client
     - visits_before_receiving if clients visits == visits_before_receiving, he automatically receives a new status
-    -
     """
     status = models.CharField(
         max_length=255, verbose_name="Client Status", blank=False, null=False
@@ -95,3 +96,24 @@ class ClientPromocode(models.Model):
         blank=False,
         null=False
     )
+
+
+class ClientReview(models.Model):
+    review = models.CharField(
+        max_length=250, verbose_name="Review", blank=True, null=True
+    )
+    rating = models.IntegerField(
+        verbose_name="Rating", validators=[MinValueValidator(0), MaxValueValidator(5)]
+    )
+    client = models.ForeignKey(
+        "Client",
+        on_delete=models.PROTECT,
+        blank=False,
+        null=False,
+    )
+    date_created = models.DateField(
+        auto_now_add=True, verbose_name="The date the review was created"
+    )
+
+    def __str__(self) -> str:
+        return self.client.name
